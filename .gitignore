@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+venv/
+ENV/
+reports_history.db
+exports/*
+uploads/*
+scratch/
+.idea/
+.vscode/
+.DS_Store
+*.docx
+!template-word.docx
+requirements.txt.bak

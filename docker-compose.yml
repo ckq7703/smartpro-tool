@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: smartpro-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: smartpro_root_pass
+      MYSQL_DATABASE: smartpro_tools
+      MYSQL_USER: smartpro_user
+      MYSQL_PASSWORD: smartpro_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - smartpro-network
+
+  app:
+    build: .
+    image: quochigh/smartpro-tools:latest
+    container_name: smartpro-app
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=smartpro_user
+      - DB_PASSWORD=smartpro_pass
+      - DB_NAME=smartpro_tools
+      - GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID_HERE
+      - SECRET_KEY=YOUR_SECRET_KEY_HERE
+      - ADMIN_USER=smartproadmin
+      - ADMIN_PASSWORD=smartproadmin
+      - ADMIN_EMAIL=smartproadmin@gmail.com
+    depends_on:
+      - db
+    networks:
+      - smartpro-network
+
+networks:
+  smartpro-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

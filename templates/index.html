@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPro Tools SaaS</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx-preview@0.3.2/dist/docx-preview.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <img src="/static/img/logo.png" alt="SmartPro Logo" class="brand-logo">
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item active" id="nav-overview" data-view="overview">
+                <i data-lucide="layout-dashboard" class="nav-icon"></i>
+                <span>Tổng quan</span>
+            </div>
+
+            <!-- Parent Menu -->
+            <div class="nav-parent" id="parent-word">
+                <div class="nav-item" id="nav-word-trigger">
+                    <i data-lucide="file-text" class="nav-icon"></i>
+                    <span>Định dạng Word</span>
+                    <i data-lucide="chevron-down" class="chevron-icon"></i>
+                </div>
+                <div class="nav-submenu" id="submenu-word">
+                    <div class="nav-item sub-item" id="nav-reformat" data-view="reformat">
+                        <i data-lucide="refresh-cw" class="nav-icon-sm"></i>
+                        <span>Reformat bản thảo</span>
+                    </div>
+                    <div class="nav-item sub-item" id="nav-template" data-view="template">
+                        <i data-lucide="copy" class="nav-icon-sm"></i>
+                        <span>Quản lý Templates</span>
+                    </div>
+                    <div class="nav-item sub-item" id="nav-history" data-view="history">
+                        <i data-lucide="history" class="nav-icon-sm"></i>
+                        <span>Lịch sử báo cáo</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <header>
+            <div class="header-title">
+                <h2 id="view-title">Tổng quan</h2>
+                <p>Chào mừng quay trở lại, Quản trị viên</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary btn-sm" style="background:transparent; border:1px solid var(--border); border-radius: 50%; width: 36px; height: 36px;">
+                    <i data-lucide="bell" style="width: 16px; height: 16px;"></i>
+                </button>
+                
+                <div class="header-user-dropdown" id="user-dropdown-trigger">
+                    <div class="user-avatar-small" id="user-avatar-initials">SP</div>
+                    <i data-lucide="chevron-down" style="width: 14px; margin-left: 4px; color: var(--text-muted);"></i>
+                    
+                    <div class="dropdown-menu" id="user-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="user-name" id="display-user-name">Đang tải...</p>
+                            <p class="user-status">Hội viên Pro</p>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="user" style="width: 14px;"></i> Tài khoản
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i data-lucide="settings" style="width: 14px;"></i> Cài đặt
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item logout-link" id="logout-btn">
+                            <i data-lucide="log-out" style="width: 14px;"></i> Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-body">
+            <!-- View: Overview -->
+            <main id="view-overview">
+                <div class="grid-3" style="margin-bottom: 2rem;">
+                    <div class="card" style="border-left: 4px solid var(--primary);">
+                        <p style="color: var(--text-muted); font-size: 0.875rem;">Tổng báo cáo</p>
+                        <h1 id="stat-total" style="font-size: 2rem; margin-top: 5px;">0</h1>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--success);">
+                        <p style="color: var(--text-muted); font-size: 0.875rem;">Templates khả dụng</p>
+                        <h1 id="stat-templates" style="font-size: 2rem; margin-top: 5px;">1</h1>
+                    </div>
+                    <div class="card" style="border-left: 4px solid #f97316;">
+                        <p style="color: var(--text-muted); font-size: 0.875rem;">Trạng thái</p>
+                        <h1 style="font-size: 1.5rem; margin-top: 5px; color: var(--success);">Sẵn sàng</h1>
+                    </div>
+                </div>
+                <div class="card">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3>Sử dụng nhanh</h3>
+                        <i data-lucide="zap" style="color: #f97316;"></i>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary" onclick="window.location.hash='#editor'">Tạo báo cáo
+                            mới</button>
+                        <button class="btn btn-secondary" onclick="window.location.hash='#reformat'">Reformat file
+                            nháp</button>
+                    </div>
+                </div>
+            </main>
+
+
+            <!-- View: Reformat -->
+            <main id="view-reformat" class="hidden">
+                <div class="card">
+                    <h3>Smart Reformat</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Giữ nguyên cấu trúc phức tạp, tự động gán Style định danh của SmartPro.</p>
+                    
+                    <!-- Mapping Rules Guide -->
+                    <div class="info-card" style="margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; color: var(--primary);">
+                            <i data-lucide="info" style="width: 20px;"></i>
+                            <h4 style="margin: 0;">Hướng dẫn soạn thảo bản thảo (.docx)</h4>
+                        </div>
+                        <ul class="rule-list">
+                            <li><strong>Cỡ chữ 19:</strong> Sẽ trở thành <strong>Tiêu đề 1 (H1)</strong></li>
+                            <li><strong>Cỡ chữ 18:</strong> Sẽ trở thành <strong>Tiêu đề 2 (H2)</strong></li>
+                            <li><strong>Cỡ chữ 17 trở lên:</strong> Sẽ trở thành <strong>Tiêu đề 3 (H3)</strong></li>
+                            <li><strong>Cỡ chữ 16:</strong> Sẽ trở thành <strong>Tiêu đề 4 (H4)</strong></li>
+                            <li><strong>Cỡ chữ 15:</strong> Sẽ trở thành <strong>Tiêu đề 5 (H5)</strong></li>
+                            <li><strong>Cỡ chữ 14:</strong> Sẽ trở thành <strong>Văn bản thường (Normal)</strong></li>
+                            <li><strong>Cỡ chữ 13 (Bắt đầu bằng dấu "-"):</strong> Tự động định dạng <strong>Bullet point</strong></li>
+                        </ul>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border); font-size: 0.875rem; color: var(--text-muted);">
+                            <p>⚠️ <strong>Quan trọng:</strong> Không để trang bìa trong bản thảo. Nội dung phải bắt đầu từ trang 1. Bảng biểu và hình ảnh sẽ được giữ nguyên vị trí.</p>
+                        </div>
+                    </div>
+                    <div class="grid-3">
+                        <div class="form-group">
+                            <label>Tiêu đề bìa</label>
+                            <input type="text" id="ref-title" placeholder="Tiêu đề trên trang bìa chính">
+                        </div>
+                        <div class="form-group">
+                            <label>Phiên bản</label>
+                            <input type="text" id="ref-version" value="1.0">
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn Template</label>
+                            <select id="ref-tpl-select"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Chọn file bản thảo (.docx)</label>
+                        <input type="file" id="ref-file" accept=".docx">
+                    </div>
+                    <button class="btn btn-primary" id="reformat-btn" style="width: 100%;">Tải lên & Tự động định
+                        dạng</button>
+                </div>
+            </main>
+
+            <!-- View: Templates -->
+            <main id="view-template" class="hidden">
+                <div class="card">
+                    <h3>Quản lý Templates</h3>
+                    <div
+                        style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: end; margin-bottom: 2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Tên mẫu</label>
+                            <input type="text" id="new-tpl-name" placeholder="VD: Mẫu báo cáo 2026">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>File .docx</label>
+                            <input type="file" id="new-tpl-file" accept=".docx">
+                        </div>
+                        <button class="btn btn-secondary" id="upload-tpl-btn">Lưu mẫu mới</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên Mẫu</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tpl-table-body"></tbody>
+                    </table>
+                </div>
+            </main>
+
+            <!-- View: History -->
+            <main id="view-history" class="hidden">
+                <div class="card">
+                    <h3>Lịch sử xuất bản</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Phiên bản</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body"></tbody>
+                    </table>
+                    <!-- Pagination -->
+                    <div class="pagination-container" id="history-pagination">
+                        <!-- Pagination buttons injected here -->
+                    </div>
+                </div>
+                </div>
+            </main>
+        </div>
+    <!-- Template Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <i data-lucide="eye" style="color: var(--primary);"></i>
+                    <h3 id="modal-title" style="margin: 0;">Xem trước mẫu</h3>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="download-modal-btn" class="btn btn-secondary btn-sm" title="Tải xuống">
+                        <i data-lucide="download" style="width: 16px;"></i>
+                    </button>
+                    <button id="close-modal" class="btn btn-danger btn-sm">
+                        <i data-lucide="x" style="width: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="docx-container" class="docx-container">
+                <div class="preview-placeholder">Đang tải tài liệu...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>

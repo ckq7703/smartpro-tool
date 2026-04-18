@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPro Tools - Đăng nhập</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts: Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/login.css">
+    <!-- Google Login API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up">
+            <form id="register-form">
+                <img src="/static/img/logo.png" alt="Logo" class="logo">
+                <div class="social-icons">
+                    <div id="google-signup-btn"></div>
+                </div>
+                <span>Hoặc đăng ký bằng Email</span>
+                <input type="text" id="reg-name" placeholder="Họ và tên" required>
+                <input type="text" id="reg-email" placeholder="Email hoặc Tài khoản" required>
+                <input type="password" id="reg-password" placeholder="Mật khẩu" required>
+                <div id="reg-error" class="error-msg"></div>
+                <button type="submit">ĐĂNG KÝ</button>
+            </form>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="form-container sign-in">
+            <form id="login-form">
+                <img src="/static/img/logo.png" alt="Logo" class="logo">
+                <div class="social-icons">
+                    <div id="google-login-btn"></div>
+                </div>
+                <span>Đăng nhập bằng tài khoản hoặc Email</span>
+                <input type="text" id="login-email" placeholder="Email hoặc Tài khoản" required>
+                <input type="password" id="login-password" placeholder="Mật khẩu" required>
+                <a href="#">Quên mật khẩu?</a>
+                <div id="login-error" class="error-msg"></div>
+                <button type="submit">ĐĂNG NHẬP</button>
+            </form>
+        </div>
+
+        <!-- Toggle Panels -->
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Mừng bạn trở lại!</h1>
+                    <p>Đăng nhập để tiếp tục tối ưu hóa các bản thảo Word của bạn</p>
+                    <button class="hidden" id="login">ĐĂNG NHẬP</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Chào bạn mới!</h1>
+                    <p>Đăng ký ngay để sử dụng công cụ Reformat thông minh của SmartPro</p>
+                    <button class="hidden" id="register">ĐĂNG KÝ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google One Tap / Hidden Button container -->
+    <div id="g_id_onload"
+         data-client_id="{{ google_client_id }}"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false"
+         data-auto_select="false">
+    </div>
+
+    <script src="/static/js/auth.js"></script>
+</body>
+
+</html>
